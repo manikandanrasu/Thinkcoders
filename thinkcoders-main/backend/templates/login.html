@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% set body = "flex min-h-screen bg-[#ebf6f9] font-[poppins] text-gray-800 items-center justify-center" %}
+
+{% block title %}Thinkcoders-Login{% endblock %}
+
+{% block content %}
+    <div class="bg-white relative flex flex-col m-6 space-y-8 shadow-2xl rounded-2xl md:flex-row md:space-y-0">
+        <div class="flex flex-col justify-center p-8 md:p-14">
+            <span class="mb-2 text-4xl font-bold">Welcome Back</span>
+            <span class="font-light text-gray-400 mb-8">Login to your account using your email and password.</span>
+
+            <form action="{{ url_for('registration_login.login') }}" method="POST" class="w-full"> 
+
+                <div class="py-4">
+                    <label for="username" class="mb-2 text-md block">Username</label>
+                    <input
+                        type="text"
+                        class="w-full p-2 border border-gray-300 rounded-md placeholder:font-light placeholder:text-gray-500"
+                        placeholder="Enter username"
+                        name="username"
+                        required
+                    >
+                </div>
+
+                <div class="py-4">
+                    <label for="password" class="mb-2 text-md block">Password</label>
+                    <input
+                        type="password"
+                        class="w-full p-2 border border-gray-300 rounded-md placeholder:font-light placeholder:text-gray-500"
+                        name="password"
+                        placeholder="Enter password"
+                        required
+                    >
+                </div>
+
+                <div class="flex w-full justify-between">
+                    <button
+                        type="submit"
+                        class="flex px-4 py-2 rounded-lg mb-6 bg-[#20c4c6] hover:bg-[#1aaeb0] text-white hover:text-gray-100"
+                    >
+                        Login
+                    </button>
+
+                    <span class="flex font-semibold text-md pt-2">Lost password?</span>
+                </div>
+
+                <button
+                    type="button"
+                    class="w-full border border-grey-300 text-md p-2 rounded-lg mb-6"
+                >
+                    <img src="" alt="">Sign in with Google
+                </button>
+            </form>
+
+            <div class="text-center text-gray-400">
+                Don't have an account?
+                <span class="font-semibold text-black"><a href="{{ url_for('registration_login.signup') }}">Signup for free.</a></span>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}

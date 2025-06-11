@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% set body = "min-h-screen bg-[#ebf6f9] flex items-center justify-center font-[poppins]" %}
+
+{% block title %}Thinkcoders-signup{% endblock %}
+
+{% block content %}
+    <div class="bg-white relative flex flex-col m-6 space-y-8 shadow-2xl rounded-2xl md:flex-row md:space-y-0">
+        <div class="flex flex-col justify-center p-8 md:p-14">
+            <span class="mb-2 text-4xl font-bold">Get free account</span>
+            <span>Signup now to get started!</span>
+                
+            <form action="{{ url_for('registration_login.signup') }}" method="POST" class="w-full"> 
+                <div class="py-2">
+                    <label for="email" class="mb-2 text-md block">Email</label>
+                    <input
+                        type="email"
+                        class="w-full border border-gray-300 p-2 rounded-md placeholder:font-light placeholder:text-gray-500"
+                        placeholder="Enter Email"
+                        name="email"
+                        id="email"
+                        required
+                    >
+                </div>
+
+                <div class="py-2">
+                    <label for="username" class="mb-2 text-md block">Username</label>
+                    <input
+                        type="username"
+                        class="w-full border border-gray-300 p-2 rounded-md placeholder:font-light placeholder:text-gray-500"
+                        placeholder="Enter username"
+                        name="username"
+                        id="username"
+                        required
+                    >
+                </div>
+
+                <div class="py-2">
+                    <label for="password" class="mb-2 text-md block">Password</label>
+                    <input
+                        type="password"
+                        class="w-full border border-gray-300 p-2 rounded-md placeholder:font-light placeholder:text-gray-500"
+                        placeholder="Enter Password"
+                        name="password"
+                        id="password"
+                        required
+                    >
+                </div>
+
+                <button
+                    type="submit"
+                    class="w-full border p-2 rounded-lg mb-6 bg-[#20c4c6] hover:bg-[#1aaeb0] text-white hover:text-gray-100"
+                >
+                    Create account
+                </button>
+
+                <button
+                    type="button"
+                    class="w-full border border-gray-300 text-md p-2 rounded-lg mb-6"
+                >
+                    <img src="" alt="">Register Using Google
+                </button>
+
+            </form>
+
+            <div class="text-center text-gray-400">
+                Already registered?
+                <span class="text-black font-semibold"><a href="{{ url_for('registration_login.login') }}">Login here.</a></span>
+            </div>
+        </div>
+    </div>
+{% endblock %}

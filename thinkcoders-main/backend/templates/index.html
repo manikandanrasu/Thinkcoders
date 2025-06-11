@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+{% set body = "bg-white font-[poppins] text-gray-800" %}
+
+{% block title %}Thinkcoders-index{% endblock %}
+
+{% block content %}
+<!-- Navigation bar -->
+<header class="bg-white shadow-md sticky top-0 z-50">
+  <div class="max-w-7xl mx-auto md:px-4 md:py-4 px-6 py-4 flex items-center justify-between">
+    <div class="md:text-2xl text-xl font-bold text-[#20c4c6]">
+      Think<span class="text-gray-900">Coders</span>
+    </div>
+
+    <!-- Desktop buttons -->
+    <div class="space-x-3 hidden md:flex">
+      <a href="{{ url_for('registration_login.login') }}">
+        <button class="bg-[#20c4c6] hover:bg-[#1aaeb0] text-white px-4 py-2 rounded text-sm font-semibold">Login</button>
+      </a>
+      <a href="{{ url_for('registration_login.login') }}">
+        <button class="border border-[#20c4c6] text-[#20c4c6] px-4 py-2 rounded text-sm font-semibold">Get started free</button>
+      </a>
+    </div>
+
+    <!-- Mobile menu icon -->
+    <div class="md:hidden">
+      <button id="menuToggle" class="text-3xl text-[#20c4c6] focus:outline-none">&#9776;</button>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile Sidebar -->
+<div id="mobileSidebar"
+     class="fixed top-0 right-0 h-full w-64 bg-white shadow-lg z-50 transform translate-x-full transition-transform duration-300 ease-in-out md:hidden">
+  <div class="flex justify-end p-4">
+    <button id="closeSidebar" class="text-2xl text-gray-500 hover:text-black">&times;</button>
+  </div>
+  <div class="flex flex-col items-center space-y-6 mt-10">
+    <a href="{{ url_for('registration_login.login') }}">
+      <button class="w-48 bg-[#20c4c6] hover:bg-[#1aaeb0] text-white py-3 rounded text-lg font-semibold">Login</button>
+    </a>
+    <a href="{{ url_for('registration_login.login') }}">
+      <button class="w-48 border border-[#20c4c6] text-[#20c4c6] py-3 rounded text-lg font-semibold">Get started free</button>
+    </a>
+  </div>
+</div>
+
+  <!-- Hero Section -->
+  <section class="bg-[#ebf6f9] md:w-full min-h-screen flex justify-center px-4">
+    <div class="max-w-7xl w-[95%] md:w-full grid grid-cols-1 md:grid-cols-2 gap-12">
+
+      <!-- Grid 1 -->
+      <div class="flex-col md:justify-center md:space-y-6 mt-[35%]">
+        <h1 class="font-playfair text-4xl md:text-5xl font-bold text-gray-900 leading-tight mb-6">
+          Where coding gets sharper <span class="italic font-medium text-gray-700">&amp;</span> learning flows smoother
+        </h1>
+        <p class="text-gray-600 md:text-lg text-xl mb-5 tracking-wide">
+            Thinkcoders is your go-to platform to practise coding challenges, sharpen problem-solving skills,
+            and strengthen your core programming knowledge. Whether you're a beginner or looking to levelup, Thinkcoders
+            helps you grow with the right question and learning path.
+        </p>
+        <div class="flex flex-col md:space-x-4 md:hidden">
+            <!-- Signup -->
+            <a href="{{ url_for('registration_login.login') }}">
+              <button class="w-full bg-[#20c4c6] hover:bg-[#1aaeb0] text-white text-2xl py-5 font-medium md:py-2 md:px-6 rounded-md mb-5">
+                Create account
+              </button>
+            </a>
+
+            <!-- Login -->
+            <a href="{{ url_for('registration_login.login') }}">
+              <button class="w-full border border-[#20c4c6] hover:bg-[#1aaeb0]/20 text-[#20c4c6] text-2xl py-5 font-medium md:py-2 md:px-6 rounded-md">
+                Login
+            </button>
+            </a>
+        </div>
+      </div>
+
+      <!-- Grid 2: Illustration -->
+      <div class="flex items-center justify-center hidden md:block">
+        <img src="{{ url_for('static', filename='images/thinkcoders-index.png') }}"  class="w-full">
+      </div>
+
+    </div>
+  </section>
+
+  <!-- JavaScript for Sidebar Toggle -->
+<script>
+  const menuToggle = document.getElementById("menuToggle");
+  const mobileSidebar = document.getElementById("mobileSidebar");
+  const closeSidebar = document.getElementById("closeSidebar");
+
+  menuToggle.addEventListener("click", () => {
+    mobileSidebar.classList.remove("translate-x-full");
+  });
+
+  closeSidebar.addEventListener("click", () => {
+    mobileSidebar.classList.add("translate-x-full");
+  });
+</script>
+{% endblock %}

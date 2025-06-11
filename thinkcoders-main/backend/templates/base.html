@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        {% block title %} {% endblock %}
+    </title>
+
+    <!-- Tailwind CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Playfair Display & poppins font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+   
+    <!-- Font awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Custom Tailwind config to add the font -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        playfair: ['"Playfair Display"', 'serif'],
+                        poppins: ['"Poppins"', 'sans-sarif'],
+                    }
+                }
+            }
+        }
+   </script>
+</head>
+<body class="{{ body }}">
+    <div class="flex fixed inset-x-0 top-4 z-50 justify-center px-4">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div id="flash-message-{{ loop.index }}" class="flash-message transition-opacity duration-500 opacity-100 p-4 mb-4 rounded-md shadow
+                    {% if category == 'success' %} bg-green-100 text-green-800 border border-green-300
+                    {% elif category == 'error' %} bg-red-100 text-red-800 border border-red-300
+                    {% elif category == 'warning' %} bg-yellow-100 text-yellow-800 border border-yellow-300
+                    {% else %}bg-gray-100 text-gray-800 border border-gary-800
+                    {% endif %}
+                    "
+                    >
+                        {{ message }}
+                    </div>
+                    <script>
+                        setTimeout(() => {
+                            const el = document.getElementById("flash-message-{{ loop.index }}");
+                            if (el) {
+                                el.classList.add("opacity-0");
+                                setTimeout(() => el.remove(), 500);
+                            }
+                        }, 3000);
+                    </script>
+                {% endfor %}
+            {%endif %}
+        {% endwith %}
+    </div>
+    {% block content %} {% endblock %}
+</body>
+</html>

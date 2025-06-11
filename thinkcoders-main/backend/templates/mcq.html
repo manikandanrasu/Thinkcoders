@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+{% set body = "bg-gray-200 min-h-screen flex items-center justify-center" %}
+
+{% block title %}Thinkcoders-MCQ{% endblock %}
+
+{% block content %}
+  <div class="bg-white shadow-md rounded-lg p-8 w-full max-w-md">
+    <h1 class="text-xl font-bold mb-6 text-center">MCQ Quiz</h1>
+
+    <form id="quizForm">
+      <p id="question" class="text-lg font-semibold mb-6"></p>
+
+      <div id="options" class="space-y-3">
+        <!-- Options -->
+        <div>
+          <input type="radio" id="optionA" name="option" value="A" class="hidden peer" onclick="checkAnswer('A')">
+          <label id="labelA" for="optionA" 
+                 class="block border border-gray-300 rounded px-4 py-2 cursor-pointer 
+                        peer-checked:bg-blue-100 peer-checked:border-blue-500 hover:bg-gray-100">
+            <span id="textA"></span>
+          </label>
+        </div>
+
+        <div>
+          <input type="radio" id="optionB" name="option" value="B" class="hidden peer" onclick="checkAnswer('B')">
+          <label id="labelB" for="optionB"
+                 class="block border border-gray-300 rounded px-4 py-2 cursor-pointer 
+                        peer-checked:bg-blue-100 peer-checked:border-blue-500 hover:bg-gray-100">
+            <span id="textB"></span>
+          </label>
+        </div>
+
+        <div>
+          <input type="radio" id="optionC" name="option" value="C" class="hidden peer" onclick="checkAnswer('C')">
+          <label id="labelC" for="optionC"
+                 class="block border border-gray-300 rounded px-4 py-2 cursor-pointer 
+                        peer-checked:bg-blue-100 peer-checked:border-blue-500 hover:bg-gray-100">
+            <span id="textC"></span>
+          </label>
+        </div>
+
+        <div>
+          <input type="radio" id="optionD" name="option" value="D" class="hidden peer" onclick="checkAnswer('D')">
+          <label id="labelD" for="optionD"
+                 class="block border border-gray-300 rounded px-4 py-2 cursor-pointer 
+                        peer-checked:bg-blue-100 peer-checked:border-blue-500 hover:bg-gray-100">
+            <span id="textD"></span>
+          </label>
+        </div>
+      </div>
+
+      <button id="nextBtn" type="button" onclick="loadQuestion()"
+              class="mt-6 w-full bg-blue-700 hover:bg-blue-800 text-white font-semibold py-2 px-4 rounded hidden">
+        Next
+      </button>
+    </form>
+  </div>
+
+  <script>
+    const topic = "{{ topic }}";  // Jinja injects topic
+    let correctAnswer = "";
+
+    async function loadQuestion() {
+      const res = await fetch(`/api/get-question/${topic}`);
+      const data = await res.json();
+
+      // Update question text
+      document.getElementById('question').textContent = data.question;
+
+      // Update options
+      document.getElementById('textA').textContent = data.options.A;
+      document.getElementById('textB').textContent = data.options.B;
+      document.getElementById('textC').textContent = data.options.C;
+      document.getElementById('textD').textContent = data.options.D;
+
+      correctAnswer = data.answer;
+
+      // Reset styles and inputs
+      ['A', 'B', 'C', 'D'].forEach(id => {
+        const label = document.getElementById('label' + id);
+        label.classList.remove('text-green-600', 'text-red-600');
+        label.classList.add('text-black');
+        document.getElementById('option' + id).checked = false;
+        document.getElementById('option' + id).disabled = false;
+      });
+
+      document.getElementById('nextBtn').classList.add('hidden');
+    }
+
+    function checkAnswer(selected) {
+      // Disable all radios
+      ['A', 'B', 'C', 'D'].forEach(id => {
+        document.getElementById('option' + id).disabled = true;
+        const label = document.getElementById('label' + id);
+        label.classList.remove('text-black', 'text-green-600', 'text-red-600');
+      });
+
+      if (selected === correctAnswer) {
+        document.getElementById('label' + selected).classList.add('text-green-600');
+      } else {
+        document.getElementById('label' + selected).classList.add('text-red-600');
+        document.getElementById('label' + correctAnswer).classList.add('text-green-600');
+      }
+
+      document.getElementById('nextBtn').classList.remove('hidden');
+    }
+
+    // Load first question
+    window.onload = loadQuestion;
+  </script>
+{% endblock %}
