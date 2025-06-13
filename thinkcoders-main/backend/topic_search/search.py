@@ -1,7 +1,7 @@
 from flask import request, render_template, jsonify
 
-from . import topic_search_bp
-from backend.ai_gen_module.cohere_integration import generate_q
+from backend.topic_search import topic_search_bp
+from backend.ai_gen_module.openrouter_integration import generate_q
 
 import logging
 logging.basicConfig(level=logging.INFO)

@@ -10,6 +10,7 @@ def validate_signup_data(func):
     def validate_and_proceed(*args, **kwargs):
 
         if request.method == 'POST':
+            
             data = request.form
 
             username = data.get("username")
